@@ -1,0 +1,30 @@
+{
+  "name": "mesto-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhoriks/mesto-server.git"
+  },
+  "author": "George Pogorelov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhoriks/mesto-server/issues"
+  },
+  "homepage": "https://github.com/zhoriks/mesto-server#readme",
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "install": "^0.13.0",
+    "npm": "^6.11.3"
+  }
+}
