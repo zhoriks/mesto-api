@@ -16,5 +16,6 @@ module.exports.getUsers = (req, res) => {
 module.exports.getUser = (req, res) => {
   User.findById(req.params.id)
     .then((users) => res.send({ users }))
+    .catch(() => res.status(404).send({ message: 'Пользователь не найдена' }))
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
