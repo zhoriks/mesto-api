@@ -4,7 +4,7 @@ module.exports.addUser = (req, res) => {
   const { name, about, avatar } = req.body;
   User.create({ name, about, avatar })
     .then((user) => res.send({ user }))
-    .catch(() => res.status(500).send({ message: 'Произошла ошибочка' }));
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
 
 module.exports.getUsers = (req, res) => {
@@ -15,7 +15,7 @@ module.exports.getUsers = (req, res) => {
 
 module.exports.getUser = (req, res) => {
   User.findById(req.params.id)
+    .orFail(() => res.status(404).send({ message: 'Пользователь не найден' }))
     .then((users) => res.send({ users }))
-    .catch(() => res.status(404).send({ message: 'Пользователь не найдена' }))
     .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
