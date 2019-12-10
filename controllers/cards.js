@@ -15,6 +15,11 @@ module.exports.getCards = (req, res) => {
 
 module.exports.deleteCard = (req, res) => {
   Card.findByIdAndDelete(req.params.id)
-    .then((users) => res.send({ users }))
+    .then((cards) => {
+      if (!cards) {
+        res.status(404).send({ message: 'Карточка не найден' });
+      }
+      res.send({ cards });
+    })
     .catch(() => res.status(404).send({ message: 'Карточка не найдена' }));
 };

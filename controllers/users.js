@@ -15,6 +15,11 @@ module.exports.getUsers = (req, res) => {
 
 module.exports.getUser = (req, res) => {
   User.findById(req.params.id)
-    .then((users) => res.send({ users }))
+    .then((users) => {
+      if (!users) {
+        res.status(404).send({ message: 'Пользователь не найден' });
+      }
+      res.send({ users });
+    })
     .catch(() => res.status(404).send({ message: 'Пользователь не найдет' }));
 };
