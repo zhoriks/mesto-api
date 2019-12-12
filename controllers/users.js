@@ -22,5 +22,5 @@ module.exports.getUser = (req, res) => {
       }
       res.send({ users });
     })
-    .catch(() => res.status(404).send({ message: 'Пользователь не найдет' }));
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
 };
