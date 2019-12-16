@@ -2,27 +2,29 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-module.exports.addUser = (req, res) => {
-  bcrypt.hash(req.body.password, 10)
-    .then((hash) => User.create({
-      email: req.body.email,
-      password: hash,
-      name: req.body.name,
-      about: req.body.about,
-      avatar: req.body.avatar,
-    }))
-    .then((user) => {
-      res.status(201).send({
-        _id: user._id,
-        email: user.email,
-        name: user.name,
-        about: user.about,
-        avatar: user.avatar,
+module.exports.addUser = async (req, res) => {
+  if (req.body.password.length >= 6) {
+    bcrypt.hash(req.body.password, 10)
+      .then((hash) => User.create({
+        email: req.body.email,
+        password: hash,
+        name: req.body.name,
+        about: req.body.about,
+        avatar: req.body.avatar,
+      }))
+      .then((user) => {
+        res.status(201).send({
+          _id: user._id,
+          email: user.email,
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+        });
+      })
+      .catch((err) => {
+        res.status(400).send({ message: err.message });
       });
-    })
-    .catch((err) => {
-      res.status(400).send(err);
-    });
+  } else res.send({ message: 'Короткий пароль' });
 };
 
 module.exports.login = (req, res) => {

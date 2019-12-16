@@ -22,8 +22,9 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useUnifiedTopology: true,
 });
 
-app.post('/singup', addUser);
-app.post('/singin', login);
+
+app.post('/signup', addUser);
+app.post('/signin', login);
 app.use('/', auth, routerUsers);
 app.use('/', auth, routerCards);
 

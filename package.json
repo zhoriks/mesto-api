@@ -30,7 +30,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.5",
     "mongoose-type-url": "^1.0.6",
+    "mongoose-unique-validator": "^2.0.3",
     "mongoose-validator": "^2.1.0",
-    "npm": "^6.13.4"
+    "npm": "^6.13.4",
+    "validator": "^12.1.0"
   }
 }
