@@ -2,8 +2,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-module.exports.addUser = async (req, res) => {
-  if (req.body.password.length >= 6) {
+module.exports.addUser = (req, res) => {
+  if (typeof req.body.password !== 'undefined' && req.body.password.length >= 6) {
     bcrypt.hash(req.body.password, 10)
       .then((hash) => User.create({
         email: req.body.email,

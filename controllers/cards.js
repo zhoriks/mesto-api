@@ -16,7 +16,6 @@ module.exports.getCards = (req, res) => {
 module.exports.deleteCard = (req, res) => {
   Card.findById(req.params.id)
     .then((card) => {
-      console.log(req.user._id, card.owner.toString());
       if (req.user._id === card.owner.toString()) {
         Card.findByIdAndRemove(req.params.id)
           .then(() => res.send({ message: 'Удалено' }));
