@@ -24,7 +24,7 @@ module.exports.addUser = (req, res) => {
       .catch((err) => {
         res.status(400).send({ message: err.message });
       });
-  } else res.send({ message: 'Короткий пароль' });
+  } else res.status(400).send({ message: 'Короткий пароль' });
 };
 
 module.exports.login = (req, res) => {
