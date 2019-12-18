@@ -14,13 +14,14 @@ module.exports.getCards = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  Card.findByIdAndDelete(req.params.id)
-    .then((cards) => {
-      if (!cards) {
-        res.status(404).send({ message: 'Карточка не найден' });
-        return;
+  Card.findById(req.params.id)
+    .then((card) => {
+      if (req.user._id === card.owner.toString()) {
+        Card.findByIdAndRemove(req.params.id)
+          .then(() => res.send({ message: 'Удалено' }));
+      } else {
+        res.send({ message: 'Нет прав' });
       }
-      res.send({ cards });
     })
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка' }));
+    .catch(() => res.status(500).send({ message: 'Что-то пошло не так' }));
 };
