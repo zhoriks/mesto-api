@@ -54,12 +54,17 @@ module.exports.getUsers = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.params.id)
-    .then((users) => {
-      if (!users) {
-        throw new NotFoundError('Нет пользователя с таким id');
-      }
-      res.send({ users });
-    })
-    .catch(next);
+  if (/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i.test(req.params.id)) {
+    User.findById(req.params.id)
+      .then((user) => {
+        if (!user) {
+          throw new NotFoundError('Нет пользователя с таким id');
+        } else {
+          res.send({ user });
+        }
+      })
+      .catch(next);
+  } else {
+    throw new BadReques('Не верный id');
+  }
 };
