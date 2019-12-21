@@ -3,10 +3,10 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { celebrate, Joi } = require('celebrate');
 const { errors } = require('celebrate');
 
 const auth = require('./middlewares/auth');
+const { validSignUp, validSignIn } = require('./celebrate-validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/not-found-err');
 
@@ -36,21 +36,8 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-    name: Joi.string().required().min(2).max(30),
-    avatar: Joi.required(),
-    about: Joi.string().min(2).max(30),
-  }),
-}), addUser);
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().min(2),
-    password: Joi.string().required().min(6),
-  }),
-}), login);
+app.post('/signup', validSignUp, addUser);
+app.post('/signin', validSignIn, login);
 app.use('/', auth, routerUsers);
 app.use('/', auth, routerCards);
 

@@ -1,21 +1,11 @@
 const routerCards = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
-Joi.objectId = require('joi-objectid')(Joi);
 const { addCard, getCards, deleteCard } = require('../controllers/cards');
+const { validCardCreate, validCardDeleteId } = require('../celebrate-validation');
 
-routerCards.post('/cards', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required(),
-  }),
-}), addCard);
+routerCards.post('/cards', validCardCreate, addCard);
 
 routerCards.get('/cards', getCards);
 
-routerCards.delete('/cards/:id', celebrate({
-  params: Joi.object().keys({
-    id: Joi.objectId(),
-  }),
-}), deleteCard);
+routerCards.delete('/cards/:id', validCardDeleteId, deleteCard);
 
 module.exports = routerCards;
