@@ -7,7 +7,7 @@
 ## После установки всех пакетов проделайте следующее
 
 Склонируйте гит-репозиторий
->`git clone https://github.com/zhoriks/mesto-server.git`
+## git clone https://github.com/zhoriks/mesto-server.git
 
 Установите npm-зависимости
 >`npm install`
