@@ -1,6 +1,6 @@
 # zhoriks.github.io/mesto-server
 
-## v0.0.1
+### v0.0.1
 
 Проект практикума по использованию node.js и фреймворка express
 
